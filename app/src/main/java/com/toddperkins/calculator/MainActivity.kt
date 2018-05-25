@@ -3,6 +3,7 @@ package com.toddperkins.calculator
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import kotlinx.android.synthetic.main.activity_main.*
+import java.text.DecimalFormat
 
 enum class CalculatorMode {
     None,Add,Subtract,Multiply
@@ -64,6 +65,13 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun updateText() {
+
+        if(labelString.length > 8){
+            didPressClear()
+            textView.text = "Too Big!"
+            return
+        }
+
         val labelInt = labelString.toInt()
 
         labelString = labelInt.toString()
@@ -71,6 +79,8 @@ class MainActivity : AppCompatActivity() {
         if(currentMode == CalculatorMode.None) {
             savedNum = labelInt
         }
+
+        val df = DecimalFormat("#.###")
 
         textView.text = labelString
     }
